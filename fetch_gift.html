@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>fetch gift</title>
+    <style>
+        #txt {
+            width: 50%;
+            height: 25px;
+            border-radius: 10px;
+            margin-left: auto;
+            border-color: lightblue;
+            border-style: solid;
+        }
+        
+        #btn {
+            box-sizing: border-box;
+            line-height: 20px;
+            margin-right: auto;
+            border-radius: 10px;
+            border: none;
+            height: 25px;
+            background-color: lightblue;
+            cursor: pointer;
+        }
+        
+        #box>img {
+            height: 200px;
+            margin: 10px;
+        }
+        
+        .allin {
+            margin: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="allin">
+        <input type="text" name="text" id="txt">
+        <button id="btn">btn</button>
+    </div>
+    <div id="box">
+    </div>
+
+
+    <script>
+        const file = `https://api.giphy.com/v1/gifs/search?api_key=dwBpeVc2O9qZYKevg5Vvjsnw4BKud0a6&limit=10&offset=0&rating=r&lang=en&q=`
+        btn.addEventListener("click", async() => {
+            document.querySelector("#box").innerHTML = ""
+            var url = file.concat(txt.value);
+            const response = await fetch(url);
+            const giphy = await response.json();
+            var giphyData = giphy.data;
+            console.log(giphyData)
+            giphyData.forEach(element => {
+                const image = document.createElement("img")
+                document.getElementById("box").appendChild(image);
+                image.src = element.images.preview_gif.url;
+            });
+        })
+    </script>
+</body>
+
+</html>
